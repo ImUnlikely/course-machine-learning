@@ -3,9 +3,10 @@ def get_dataset_from_online(url, destination, file_name):
 
     Args:
         url (str): the url of the raw data
-        destination (str): [description]
-        file_name ([type]): [description]
+        destination (str): file path relative to the notebook
+        file_name (str): the name of the file you want to create (name.csv)
     """
+
     if not os.path.exists(destination):
         print("Creating directory")
         os.mkdir(destination)
@@ -29,3 +30,22 @@ def get_dataset_from_online(url, destination, file_name):
             print(f"Download failed: status code {req.status_code}\n{req.text}")
     else:
         print("File already exists, cancelling")
+
+def load_csv_to_dataframe(file_path):
+    """Loads a given csv file to dataframe
+
+    Args:
+        file_path (str): path to the csv file
+
+    Returns:
+        obj: a dataframe containing data from given csv file
+    """
+    if not os.path.exists(file_path):
+        print("File does not exist")
+    else:
+        dataframe = pd.read_csv(file_path)
+        print("Dataframe loaded")
+        print(dataframe.info())
+        
+        return dataframe
+
